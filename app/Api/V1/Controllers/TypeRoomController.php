@@ -4,7 +4,8 @@ namespace App\Api\V1\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Repositories\TypeRoomRepository;
+use App\Api\V1\Repositories\TypeRoomRepository;
+use App\Models\TypeRoom;
 
 class TypeRoomController extends Controller
 {
@@ -13,7 +14,7 @@ class TypeRoomController extends Controller
 
     public function __construct(TypeRoomRepository $repository)
     {
-        $this->typeRoom = $repository->createRepository();
+        $this->typeRoom = $repository;
     }
     /**
      * Display a listing of the resource.
@@ -23,6 +24,22 @@ class TypeRoomController extends Controller
     public function index()
     {
         return $this->typeRoom->all();
+    }
+
+     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show(typeRoom $type)
+    {
+        return $this->typeRoom->get($type);
+    }
+
+    public function accommodations(TypeRoom $room)
+    {
+        return $this->typeRoom->assignedRooms($room);
     }
 
     /**
@@ -46,48 +63,5 @@ class TypeRoomController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+   
 }

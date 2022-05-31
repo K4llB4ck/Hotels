@@ -40,7 +40,7 @@ class HotelRepository implements RepositoryReadInterface, RepositoryWriteInterfa
         return new HotelCollection(Hotel::all());
     }
 
-    public function get()
+    public function get($Hotel)
     {
     }
 
