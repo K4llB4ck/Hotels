@@ -30,7 +30,7 @@ Route::prefix("v1")->group(function () {
     /*************** HOTELS *********/
 
 
-    Route::post("hotels/assignation", [HotelRoomsController::class, 'AssignRoom']);
+    Route::post("hotels/rooms/assignation", [HotelRoomsController::class, 'AssignRoom']);
     Route::apiResource("hotels", HotelController::class)->only([
         'index', 'show', 'store'
     ]);
