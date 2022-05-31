@@ -24,7 +24,8 @@ class HotelRepository implements RepositoryReadInterface, RepositoryWriteInterfa
             "room_quanty" => $data['rooms']
         ]);
 
-        return $assignRoom;
+        return array("data" => true);
+
     }
 
 
