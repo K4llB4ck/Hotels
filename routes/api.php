@@ -33,6 +33,6 @@ Route::prefix("v1")->group(function () {
     Route::apiResource("hotels", HotelController::class)->only([
         'index', 'show', 'store'
     ]);
-    Route::post("hotels/rooms/assignation", [HotelRoomsController::class, 'AssignRoom']);
+    Route::post("hotels/rooms/assignation", [HotelRoomsController::class, 'assignRoom']);
 
 });

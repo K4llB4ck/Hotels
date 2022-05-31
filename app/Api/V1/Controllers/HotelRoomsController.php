@@ -18,7 +18,7 @@ class HotelRoomsController extends Controller
     }
 
 
-    public function AssignRoom(HotelRoomRequest $request)
+    public function assignRoom(HotelRoomRequest $request)
     {
         return $this->hotel->assignRoom($request);
     }
