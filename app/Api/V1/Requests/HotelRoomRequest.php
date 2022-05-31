@@ -24,15 +24,16 @@ class HotelRoomRequest extends FormRequest
     }
 
 
-    public function validateAvailableRooms($hotel, $rooms)
+    public function validateAvailableRooms($hotel, $rooms, $fail)
     {
         $hotel  = Hotel::find($hotel);
+        if (!$hotel) return $fail("El hotel es invalido");
         $room_assignated =  $hotel->roomAssignement->sum("assignements.room_quanty");
-        return ($rooms + $room_assignated) < $hotel->rooms;
+        $check =  ($rooms + $room_assignated) < $hotel->rooms;
+        if (!$check) {
+            return $fail("El numero de cuartos ${rooms} excede la cantidad de asignación permitida");
+        }
     }
-
-
-
 
 
 
@@ -47,13 +48,9 @@ class HotelRoomRequest extends FormRequest
         return [
             "hotel" => [
                 "required",
-                "exists:hotels,id",
                 function ($attribute, $value, $fail) {
                     $rooms = $this->validator->getData()['rooms'];
-
-                    if (!$this->validateAvailableRooms($value, $rooms)) {
-                        $fail("El numero de cuartos ${rooms} excede la cantidad de asignación permitida");
-                    }
+                    $this->validateAvailableRooms($value, $rooms, $fail);
                 }
             ],
             "assignation" => "required|exists:accommodation_rooms,id",
