@@ -5,7 +5,7 @@ namespace App\Api\V1\Repositories;
 use App\Contracts\RepositoryReadInterface;
 use App\Models\TypeRoom;
 use App\Api\V1\Resources\TypeRoomCollection;
-use App\Http\Resources\TypeRoomResource;
+use App\Api\V1\Resources\TypeRoomResource;
 
 class TypeRoomRepository implements RepositoryReadInterface
 {

@@ -18,21 +18,21 @@ use App\Api\V1\Controllers\HotelRoomsController;
 */
 
 Route::prefix("v1")->group(function () {
-    Route::get('rooms/{room}/accommodations', [TypeRoomController::class, 'accommodations']);
 
 
     /*******TYPE ROOMS********/
     Route::apiResource("type-rooms", TypeRoomController::class)->only([
         'index', 'show'
     ]);
+    Route::get('type-rooms/{type-room}/accommodations', [TypeRoomController::class, 'accommodations']);
+
 
 
 
     /*************** HOTELS *********/
-
-
-    Route::post("hotels/rooms/assignation", [HotelRoomsController::class, 'AssignRoom']);
     Route::apiResource("hotels", HotelController::class)->only([
         'index', 'show', 'store'
     ]);
+    Route::post("hotels/rooms/assignation", [HotelRoomsController::class, 'AssignRoom']);
+
 });

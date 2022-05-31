@@ -26,15 +26,15 @@ class TypeRoomController extends Controller
         return $this->typeRoom->all();
     }
 
-     /**
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(typeRoom $type)
+    public function show(typeRoom $typeRoom)
     {
-        return $this->typeRoom->get($type);
+        return $this->typeRoom->get($typeRoom);
     }
 
     public function accommodations(TypeRoom $room)
@@ -62,6 +62,4 @@ class TypeRoomController extends Controller
     {
         //
     }
-
-   
 }
