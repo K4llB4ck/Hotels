@@ -31,8 +31,8 @@ Route::prefix("v1")->group(function () {
 
     /*************** HOTELS *********/
     Route::apiResource("hotels", HotelController::class)->only([
-        'index', 'show', 'store'
+        'index', 'show', 'store'    
     ]);
-    Route::post("hotels/rooms/assignation", [HotelRoomsController::class, 'assignRoom']);
+    Route::post("hotels/{hotel}/accommodation-type-rooms/assignation", [HotelRoomsController::class, 'assignRoom']);
 
 });
