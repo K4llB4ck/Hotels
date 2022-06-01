@@ -5,6 +5,7 @@ namespace App\Api\V1\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use App\Models\Hotel;
+use App\Api\V1\Rules\HotelTypeRoomAssignation;
 
 
 
@@ -24,25 +25,6 @@ class HotelRoomRequest extends FormRequest
     }
 
 
-    public function validateAvailableRooms($hotel, $rooms, $asignation, $fail)
-    {
-
-        $hotel  = Hotel::find($hotel);
-        //Validación hotel existente
-        if (!$hotel) return $fail("El hotel es invalido");
-
-        //validación asignación unica tipo de cuarto y acomodación
-        $alreadyAssigned = $hotel->roomAssignement()->wherePivot("hotel_id", $hotel->id)->wherePivot("accomodation_rooms_id", $asignation)->get();
-        if ($alreadyAssigned->count() > 0) return $fail("Ya se encuentra una asignación de acomodación para el tipo de cuarto elegido");
-
-        $room_assignated =  $hotel->roomAssignement->sum("assignements.room_quanty");
-        $check =  ($rooms + $room_assignated) < $hotel->rooms;
-        if (!$check) {
-            return $fail("El numero de cuartos ${rooms} excede la cantidad de asignación permitida");
-        }
-    }
-
-
 
     /**
      * Get the validation rules that apply to the request.
@@ -53,14 +35,10 @@ class HotelRoomRequest extends FormRequest
     {
 
         return [
-
+            "hotel" => ["required", "numeric", new HotelTypeRoomAssignation],
             "assignation" => "required|exists:accommodation_rooms,id",
-            "rooms" => "required|numeric",
-            "hotel" => ["required", function ($attribute, $value, $fail) {
-                $rooms = $this->validator->getData()['rooms'];
-                $asignation = $this->validator->getData()['assignation'];
-                $this->validateAvailableRooms($value, $rooms, $asignation, $fail);
-            }]
+            "rooms" => "required|numeric"
+
         ];
     }
 
@@ -68,6 +46,7 @@ class HotelRoomRequest extends FormRequest
     {
         return [
             "hotel.required" => "El id de hotel es requerido",
+            "hotel.numeric" => "adsasddsa",
             "rooms.required" => "El numero de cuartos a asignar son requeridos",
             "assignation.required" => "El id de asignación es requerido"
         ];
