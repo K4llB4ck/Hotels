@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Contracts;
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Validator;
 
 
 interface RepositoryWriteInterface
 {
-    public function store(FormRequest $request);
+    public function store(Validator $request);
     public function delete();
     public function update();
 }

@@ -27,7 +27,6 @@ class HotelRoomRequest extends FormRequest
     public function validateAvailableRooms($hotel, $rooms, $asignation, $fail)
     {
 
-        var_dump($hotel);
         $hotel  = Hotel::find($hotel);
         //Validación hotel existente
         if (!$hotel) return $fail("El hotel es invalido");
