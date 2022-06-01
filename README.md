@@ -38,3 +38,22 @@ Inicie el servidor de desarrollo local
 - `.env` - Las variables de entorno se pueden configurar en este archivo.
 
 ***Note*** : puede configurar rápidamente la información de la base de datos y hacer que la aplicación funcione completamente.
+
+
+# API de prueba
+
+Ejecute el servidor de desarrollo de laravel
+
+    php artisan serve
+
+Ahora se puede acceder a la API en
+
+    http://localhost:8000/api/v1
+
+Encabezados de solicitud
+
+| **Required** 	| **Key**              	| **Value**            	|
+|----------	|------------------	|------------------	|
+| Yes      	| Content-Type     	| application/json 	|
+| Yes      	| Accept 	        | application/json  |
+
