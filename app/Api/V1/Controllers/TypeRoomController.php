@@ -37,9 +37,9 @@ class TypeRoomController extends Controller
         return $this->typeRoom->get($typeRoom);
     }
 
-    public function accommodations(TypeRoom $room)
+    public function accommodations(TypeRoom $typeRoom)
     {
-        return $this->typeRoom->assignedRooms($room);
+       return $this->typeRoom->assignedRooms($typeRoom);
     }
 
     /**

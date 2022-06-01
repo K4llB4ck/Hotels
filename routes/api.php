@@ -24,7 +24,7 @@ Route::prefix("v1")->group(function () {
     Route::apiResource("type-rooms", TypeRoomController::class)->only([
         'index', 'show'
     ]);
-    Route::get('type-rooms/{type-room}/accommodations', [TypeRoomController::class, 'accommodations']);
+    Route::get('type-rooms/{type_room}/accommodations', [TypeRoomController::class, 'accommodations']);
 
 
 
