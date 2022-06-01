@@ -51,5 +51,4 @@ class HotelController extends Controller
     {
         return $this->hotel->get($hotel);
     }
-
 }

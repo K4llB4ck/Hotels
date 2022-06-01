@@ -4,31 +4,38 @@ namespace App\Api\V1\Repositories;
 
 use App\Contracts\RepositoryWriteInterface;
 use App\Contracts\RepositoryReadInterface;
-use App\Contracts\FactoryInterface;
-use App\Api\V1\Requests\HotelRequest;
 use App\Models\Hotel;
 use App\Api\V1\Resources\HotelCollection;
 use App\Api\V1\Resources\HotelResource;
-use App\Models\HotelRooms;
 
 class HotelRepository implements RepositoryReadInterface, RepositoryWriteInterface
 {
 
 
-    public function assignRoom($request)
+    /**
+     * Assign a combination of room type and accommodation to a hotel
+     *
+     * @param \Illuminate\Validation\Validator $request
+     * @param \App\Models\Hotel $hotel
+     * @return array
+     */
+    public function assignRoom($request, $hotel)
     {
-
         $data = $request->safe()->all();
-        $hotel = Hotel::find($data['hotel']);
         $assignRoom =  $hotel->roomAssignement()->attach($data['assignation'], [
             "room_quanty" => $data['rooms']
         ]);
 
         return array("data" => true);
-
     }
 
 
+    /**
+     * create a hotel
+     *
+     * @param \Illuminate\Validation\Validator $request
+     * @return \App\Api\V1\Resources\HotelResource
+     */
     public function store($request)
     {
 
@@ -36,11 +43,23 @@ class HotelRepository implements RepositoryReadInterface, RepositoryWriteInterfa
         return new HotelResource($hotel);
     }
 
+    /**
+     * check all the hotels created
+     *
+     * @return \App\Api\V1\Resources\HotelCollection
+     */
     public function all()
     {
         return new HotelCollection(Hotel::all());
     }
 
+
+    /**
+     * consult a specific hotel
+     *
+     * @param \App\Models\Hotel $hotel
+     * @return \App\Api\V1\Resources\HotelResource
+     */
     public function get($hotel)
     {
         return new HotelResource($hotel);

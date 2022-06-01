@@ -12,6 +12,12 @@ class TypeRoomController extends Controller
 
     private $typeRoom;
 
+
+    /**
+     * Inject the repository in charge of handling queries
+     *
+     * @param \App\Api\V1\Repositories\TypeRoomRepository $repository
+     */
     public function __construct(TypeRoomRepository $repository)
     {
         $this->typeRoom = $repository;
@@ -29,7 +35,7 @@ class TypeRoomController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\TypeRoom  $typeRoom
      * @return \Illuminate\Http\Response
      */
     public function show(typeRoom $typeRoom)
@@ -37,29 +43,14 @@ class TypeRoomController extends Controller
         return $this->typeRoom->get($typeRoom);
     }
 
+    /**
+     * shows all combinations of room type and accommodation assigned to a hotel
+     *
+     * @param \App\Models\TypeRoom $typeRoom
+     * @return \Illuminate\Http\Response
+     */
     public function accommodations(TypeRoom $typeRoom)
     {
-       return $this->typeRoom->assignedRooms($typeRoom);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return $this->typeRoom->assignedRooms($typeRoom);
     }
 }

@@ -19,6 +19,13 @@ use App\Api\V1\Controllers\HotelRoomsController;
 
 Route::prefix("v1")->group(function () {
 
+    
+    /*************** HOTELS *********/
+    Route::apiResource("hotels", HotelController::class)->only([
+        'index', 'show', 'store'    
+    ]);
+    Route::post("hotels/{hotel}/type-rooms/assignation", [HotelRoomsController::class, 'assignRoom']);
+
 
     /*******TYPE ROOMS********/
     Route::apiResource("type-rooms", TypeRoomController::class)->only([
@@ -29,10 +36,5 @@ Route::prefix("v1")->group(function () {
 
 
 
-    /*************** HOTELS *********/
-    Route::apiResource("hotels", HotelController::class)->only([
-        'index', 'show', 'store'    
-    ]);
-    Route::post("hotels/{hotel}/accommodation-type-rooms/assignation", [HotelRoomsController::class, 'assignRoom']);
 
 });

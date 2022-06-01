@@ -26,6 +26,8 @@ class HotelRoomRequest extends FormRequest
 
     public function validateAvailableRooms($hotel, $rooms, $asignation, $fail)
     {
+
+        var_dump($hotel);
         $hotel  = Hotel::find($hotel);
         //Validación hotel existente
         if (!$hotel) return $fail("El hotel es invalido");
@@ -52,16 +54,14 @@ class HotelRoomRequest extends FormRequest
     {
 
         return [
-            "hotel" => [
-                "required",
-                function ($attribute, $value, $fail) {
-                    $rooms = $this->validator->getData()['rooms'];
-                    $asignation = $this->validator->getData()['assignation'];
-                    $this->validateAvailableRooms($value, $rooms, $asignation, $fail);
-                }
-            ],
+
             "assignation" => "required|exists:accommodation_rooms,id",
-            "rooms" => "required|numeric"
+            "rooms" => "required|numeric",
+            "hotel" => ["required", function ($attribute, $value, $fail) {
+                $rooms = $this->validator->getData()['rooms'];
+                $asignation = $this->validator->getData()['assignation'];
+                $this->validateAvailableRooms($value, $rooms, $asignation, $fail);
+            }]
         ];
     }
 
